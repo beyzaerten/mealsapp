@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mealsapp/data/datas.dart';
 import 'package:mealsapp/models/category.dart';
+import 'package:mealsapp/screens/favorites.dart';
 import 'package:mealsapp/screens/meal_list.dart';
 import 'package:mealsapp/widgets/category_card.dart';
 
@@ -59,22 +60,36 @@ class Categories extends StatelessWidget {
         ),
         appBar: AppBar(
           title: const Text("Kategori seçin"),
-        ),
-        body: GridView(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 20,
-              mainAxisSpacing: 20,
-              childAspectRatio: 2),
-          children: [
-            for (final category in categories)
-              CategoryCard(
-                category: category,
-                onSelectCategory: () {
-                  _selectCategory(context, category);
-                },
-              )
+          actions: [
+            IconButton(
+                onPressed: () {},
+                icon: IconButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (ctx) => const Favorites()),
+                      );
+                    },
+                    icon: const Icon(Icons.favorite)))
           ],
+        ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: GridView(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                childAspectRatio: 1.5),
+            children: [
+              for (final category in categories)
+                CategoryCard(
+                  category: category,
+                  onSelectCategory: () {
+                    _selectCategory(context, category);
+                  },
+                )
+            ],
+          ),
         ),
       ),
     );
